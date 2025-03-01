@@ -173,17 +173,17 @@ void CMFCApplication1Dlg::OnBnClickedButton1()
 	swprintf(buffer, 400, L"當前進程的 PID 是: %lu\n", pid);  // 格式化字符串
 	OutputDebugString(buffer);  // 輸出到調試窗口
 	int 改完後= 99999;
-	DWORD_PTR 天氣地址;  // 存儲 (天氣 + 0x8) 地址中的數值
-	ReadProcessMemory(進程, (LPCVOID)(0x35115600 + 0x8), &天氣地址, sizeof(天氣地址), NULL);
-	swprintf(buffer, 400, L"天氣地址: 0x%p\n", (void*)天氣地址);
+	DWORD_PTR 天氣;  // 存儲 
+	ReadProcessMemory(進程, (LPCVOID)(0x35115600 + 0x8), &天氣, sizeof(天氣), NULL);
+	swprintf(buffer, 400, L"天氣地址: 0x%p\n", (void*)天氣);
 	OutputDebugString(buffer);  // 輸出到調試窗口
 	// 讀取天氣地址指向的值
-	天氣地址 = 天氣地址 + 0xF8;
+	天氣 = 天氣 + 0xF8;
 
 
 
 
-	WriteProcessMemory(進程, (LPVOID)天氣地址, &改完後, sizeof(改完後), NULL);
+	WriteProcessMemory(進程, (LPVOID)天氣, &改完後, sizeof(改完後), NULL);
 	CloseHandle(進程);
 
 
